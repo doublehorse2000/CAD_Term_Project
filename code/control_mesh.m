@@ -4,19 +4,17 @@ classdef control_mesh < handle
     
     properties
         m_type,
-        m_number,
         m_point,
         m_m,
         m_n
     end
     
     methods
-        function obj = control_mesh(type,number,point)
+        function obj = control_mesh(type,point)
             obj.m_m = 3;
             obj.m_n = 3;
             obj.m_type = type;
-            obj.m_number = number;
-            obj.m_point = point;
+            obj.m_point = point;%控制点类
         end
         
         function [Sx,Sy,Sz] = make_mesh(obj)
@@ -177,9 +175,29 @@ classdef control_mesh < handle
                 Sy = Bu * py * Bw';
                 Sz = Bu * pz * Bw';
             elseif obj.m_type == "circle"
+                
             elseif obj.m_type == "line"
-            end
-            
+                Rm = 20;Rn = 20;
+                u = linspace(0,1,Rm);
+                w = linspace(0,1,Rn);
+                Sx = zeros([Rm,Rn]);Sy = zeros([Rm,Rn]);Sz = zeros([Rm,Rn]);
+                for i = 1:Rm
+                    for j = 1:Rn
+                        
+                        Pux = obj.m_point(1).m_x * (1 - u(i)) + obj.m_point(2).m_x * u(i);
+                        Qux = obj.m_point(3).m_x * (1 - u(i)) + obj.m_point(4).m_x * u(i);
+                        Sx(i,j) = Pux * (1 - w(j)) + Qux * w(j);
+                        
+                        Puy = obj.m_point(1).m_y * (1 - u(i)) + obj.m_point(2).m_y * u(i);
+                        Quy = obj.m_point(3).m_y * (1 - u(i)) + obj.m_point(4).m_y * u(i);
+                        Sy(i,j) = Puy * (1 - w(j)) + Quy * w(j);
+                        
+                        Puz = obj.m_point(1).m_z * (1 - u(i)) + obj.m_point(2).m_z * u(i);
+                        Quz = obj.m_point(3).m_z * (1 - u(i)) + obj.m_point(4).m_z * u(i);
+                        Sz(i,j) = Puz * (1 - w(j)) + Quz * w(j);
+                    end
+                end
+            end 
         end
     end
 end
