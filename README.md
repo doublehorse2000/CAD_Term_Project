@@ -38,7 +38,12 @@ class control_joint{
 
 ```c++
 class control_mesh{
-    int type;//1:besizer,2;cycle
+    string type;
+    //"Bezier33"
+    //"Bezier32"
+    //"Bezier22"
+    //"Circle"
+    //"line"
     int number;//控制点个数
     control_point m_point[16];
     void make_mesh();
