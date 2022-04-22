@@ -1,6 +1,4 @@
 classdef control_mesh < handle
-    %UNTITLED 此处显示有关此类的摘要
-    %   此处显示详细说明
     
     properties
         m_type,
@@ -175,6 +173,30 @@ classdef control_mesh < handle
                 Sy = Bu * py * Bw';
                 Sz = Bu * pz * Bw';
             elseif obj.m_type == "circle"
+                Sx = zeros([100,101]);Sy = zeros([100,101]);Sz = zeros([100,101]);
+                n_x = obj.m_point(2).m_x - obj.m_point(1).m_x;
+                n_y = obj.m_point(2).m_y - obj.m_point(1).m_y;
+                n_z = obj.m_point(2).m_z - obj.m_point(1).m_z;
+                n = [n_x n_y n_z] ./ sqrt(n_x^2 + n_y^2 + n_z^2);
+                a_x = obj.m_point(1).m_x - obj.m_point(3).m_x;
+                a_y = obj.m_point(1).m_y - obj.m_point(3).m_y;
+                a_z = obj.m_point(1).m_z - obj.m_point(3).m_z;
+                a = [a_x a_y a_z] ./ sqrt(a_x^2 + a_y^2 + a_z^2);                
+                r = sqrt((obj.m_point(1).m_x - obj.m_point(3).m_x)^2 + (obj.m_point(1).m_y - obj.m_point(3).m_y)^2 + (obj.m_point(1).m_z - obj.m_point(3).m_z)^2);
+                b = cross(a,n);
+                u = linspace(0,1,100);
+                v = 0 : 2 * pi / 100;
+                for i = 1 : 100
+                    for j = 1 : 101
+                        c_x = obj.m_point(1).m_x * u(i) + obj.m_point(3).m_x * (1 - u(i));
+                        Sx(i,j) = c_x + r * cos(v(j)) * a(1) + r * sin(v(j)) * b(1);
+                        c_y = obj.m_point(1).m_y * u(i) + obj.m_point(3).m_y * (1 - u(i));
+                        Sy(i,j) = c_y + r * cos(v(j)) * a(2) + r * sin(v(j)) * b(2);
+                        c_z = obj.m_point(1).m_z * u(i) + obj.m_point(3).m_z * (1 - u(i));
+                        Sz(i,j) = c_z + r * cos(v(j)) * a(3) + r * sin(v(j)) * b(3);
+                    end
+                end
+                
                 
             elseif obj.m_type == "line"
                 Rm = 20;Rn = 20;

@@ -46,6 +46,9 @@ class control_mesh{
     //"line"
     int number;//控制点个数
     control_point m_point[16];
+    //圆第一个点代表起点坐标
+    //第二个点代表终点坐标
+    //第三个点代表圆上一点
     void make_mesh();
 };
 ```
