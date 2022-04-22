@@ -41,6 +41,7 @@ class control_mesh{
     int type;//1:besizer,2;cycle
     int number;//控制点个数
     control_point m_point[16];
+    void make_mesh();
 };
 ```
 
