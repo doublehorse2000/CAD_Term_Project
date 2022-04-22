@@ -2,9 +2,9 @@ classdef control_mesh < handle
     
     properties
         m_type,
-        m_point,
         m_m,
-        m_n
+        m_n,
+        m_point
     end
     
     methods

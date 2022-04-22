@@ -19,16 +19,16 @@ class control_joint{
     double m_knee_r[3];//level = 51
     control_mesh mesh[200];
     
-    void move_world(double x,double y,double z,double alpha,double beta);
-    void move_head(double x,double y,double z,double alpha,double beta);
-    void move_shoulder_l(double x,double y,double z,double alpha,double beta);
-    void move_shoulder_r(double x,double y,double z,double alpha,double beta);
-    void move_elbow_l(double x,double y,double z,double alpha,double beta);
-    void move_elbow_r(double x,double y,double z,double alpha,double beta);
-    void move_leg_l(double x,double y,double z,double alpha,double beta);
-    void move_leg_r(double x,double y,double z,double alpha,double beta);
-    void move_knee_l(double x,double y,double z,double alpha,double beta);
-    void move_knee_r(double x,double y,double z,double alpha,double beta);
+    void move_world(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_head(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_shoulder_l(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_shoulder_r(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_elbow_l(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_elbow_r(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_leg_l(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_leg_r(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_knee_l(double x,double y,double z,double alpha,double beta,double gammar);
+    void move_knee_r(double x,double y,double z,double alpha,double beta,double gammar);
     
     
 };
