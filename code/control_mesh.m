@@ -79,6 +79,7 @@ classdef control_mesh < handle
                 Sx = Bu * px * Bw';
                 Sy = Bu * py * Bw';
                 Sz = Bu * pz * Bw';
+                surf(Sx,Sy,Sz,'linestyle','-');
             elseif obj.m_type == "Bezier32"
                 px = reshape([obj.m_point(1).m_x
                     obj.m_point(2).m_x
@@ -130,6 +131,7 @@ classdef control_mesh < handle
                 Sx = Bu * px * Bw';
                 Sy = Bu * py * Bw';
                 Sz = Bu * pz * Bw';
+                surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
             elseif obj.m_type == "Bezier22"
                 px = reshape([obj.m_point(1).m_x
                     obj.m_point(2).m_x
@@ -148,7 +150,7 @@ classdef control_mesh < handle
                     obj.m_point(6).m_y
                     obj.m_point(7).m_y
                     obj.m_point(8).m_y
-                    obj.m_point(9).m_y],4,4)';
+                    obj.m_point(9).m_y],3,3)';
                 pz = reshape([obj.m_point(1).m_z
                     obj.m_point(2).m_z
                     obj.m_point(3).m_z
@@ -157,7 +159,7 @@ classdef control_mesh < handle
                     obj.m_point(6).m_z
                     obj.m_point(7).m_z
                     obj.m_point(8).m_z
-                    obj.m_point(9).m_z],4,4)';
+                    obj.m_point(9).m_z],3,3)';
                 Rm = 20;Rn = 20;
                 u = linspace(0,1,Rm)';
                 w = linspace(0,1,Rn)';
@@ -172,6 +174,7 @@ classdef control_mesh < handle
                 Sx = Bu * px * Bw';
                 Sy = Bu * py * Bw';
                 Sz = Bu * pz * Bw';
+                surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
             elseif obj.m_type == "circle"
                 Sx = zeros([100,101]);Sy = zeros([100,101]);Sz = zeros([100,101]);
                 n_x = obj.m_point(2).m_x - obj.m_point(1).m_x;
@@ -196,7 +199,7 @@ classdef control_mesh < handle
                         Sz(i,j) = c_z + r * cos(v(j)) * a(3) + r * sin(v(j)) * b(3);
                     end
                 end
-                
+                surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
                 
             elseif obj.m_type == "line"
                 Rm = 20;Rn = 20;
@@ -218,6 +221,7 @@ classdef control_mesh < handle
                         Quz = obj.m_point(3).m_z * (1 - u(i)) + obj.m_point(4).m_z * u(i);
                         Sz(i,j) = Puz * (1 - w(j)) + Quz * w(j);
                     end
+                    surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
                 end
             end 
         end
