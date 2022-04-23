@@ -71,10 +71,10 @@ classdef control_mesh < handle
                 Bu = zeros([Rm , obj.m_m + 1]);
                 Bw = zeros([Rn , obj.m_n + 1]);
                 for i = 0:obj.m_m
-                    Bu(:,i+1) = prod(i + 1:obj.m_m) / prod(1:obj.m_m - i) * u .^ i .* (1 - u) .^ (obj.m_m - i);
+                    Bu(:,i+1) = prod(i+1:obj.m_m)/prod(1:obj.m_m-i)*u.^i.*(1-u).^(obj.m_m-i);
                 end
                 for i = 0:obj.m_n
-                    Bw(:,i+1) = prod(i + 1:obj.m_n) / prod(1:obj.m_n - i) * w .^ i .* (1 - w) .^ (obj.m_n - i);
+                    Bw(:,i+1) = prod(i+1:obj.m_n)/prod(1:obj.m_n-i)*w.^i.*(1-w).^(obj.m_n-i);
                 end
                 Sx = Bu * px * Bw';
                 Sy = Bu * py * Bw';

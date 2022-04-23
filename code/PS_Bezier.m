@@ -1,7 +1,7 @@
 %-------------------------
 %  Author: Xia, Huanxiong (hxia@bit.edu.cn)
 %-------------------------
-clear;clc;close all;
+clear;clc;
 m=3; n=3;
 %% hair
 ahair_1 = [0.163134,2.86943,0.851007];
