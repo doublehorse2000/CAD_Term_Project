@@ -13,6 +13,11 @@ classdef control_mesh < handle
             obj.m_n = 3;
             obj.m_type = type;
             obj.m_point = point;%控制点类
+            if type == "Bezier32"
+                obj.m_n = 2;
+            elseif type == "Bezier22"
+                obj.m_m = 2;obj.m_n = 2;
+            end
         end
         
         function [Sx,Sy,Sz] = make_mesh(obj)
