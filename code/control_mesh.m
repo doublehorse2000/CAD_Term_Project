@@ -182,26 +182,40 @@ classdef control_mesh < handle
                 surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
             elseif obj.m_type == "circle"
                 Sx = zeros([100,101]);Sy = zeros([100,101]);Sz = zeros([100,101]);
-                n_x = obj.m_point(2).m_x - obj.m_point(1).m_x;
-                n_y = obj.m_point(2).m_y - obj.m_point(1).m_y;
-                n_z = obj.m_point(2).m_z - obj.m_point(1).m_z;
-                n = [n_x n_y n_z] ./ sqrt(n_x^2 + n_y^2 + n_z^2);
-                a_x = obj.m_point(1).m_x - obj.m_point(3).m_x;
-                a_y = obj.m_point(1).m_y - obj.m_point(3).m_y;
-                a_z = obj.m_point(1).m_z - obj.m_point(3).m_z;
-                a = [a_x a_y a_z] ./ sqrt(a_x^2 + a_y^2 + a_z^2);                
-                r = sqrt((obj.m_point(1).m_x - obj.m_point(3).m_x)^2 + (obj.m_point(1).m_y - obj.m_point(3).m_y)^2 + (obj.m_point(1).m_z - obj.m_point(3).m_z)^2);
-                b = cross(a,n);
+                o_1_x = (obj.m_point(1).m_x + obj.m_point(3).m_x) / 2;
+                o_1_y = (obj.m_point(1).m_y + obj.m_point(3).m_y) / 2;
+                o_1_z = (obj.m_point(1).m_z + obj.m_point(3).m_z) / 2;
+                o_2_x = (obj.m_point(4).m_x + obj.m_point(6).m_x) / 2;
+                o_2_y = (obj.m_point(4).m_y + obj.m_point(6).m_y) / 2;
+                o_2_z = (obj.m_point(4).m_z + obj.m_point(6).m_z) / 2;
+                a_1_x = obj.m_point(2).m_x - o_1_x;
+                a_1_y = obj.m_point(2).m_y - o_1_y;
+                a_1_z = obj.m_point(2).m_z - o_1_z;
+                b_1_x = obj.m_point(1).m_x - o_1_x;
+                b_1_y = obj.m_point(1).m_y - o_1_y;
+                b_1_z = obj.m_point(1).m_z - o_1_z;
+                a_2_x = obj.m_point(5).m_x - o_2_x;
+                a_2_y = obj.m_point(5).m_y - o_2_y;
+                a_2_z = obj.m_point(5).m_z - o_2_z;
+                b_2_x = obj.m_point(4).m_x - o_2_x;
+                b_2_y = obj.m_point(4).m_y - o_2_y;
+                b_2_z = obj.m_point(4).m_z - o_2_z;
                 u = linspace(0,1,100);
-                v = 0 : 2 * pi / 100;
+                v = 0 : 2 * pi / 100 : 2 * pi;
                 for i = 1 : 100
+                    o_x = u(i) * o_1_x + (1 - u(i)) * o_2_x;
+                    o_y = u(i) * o_1_y + (1 - u(i)) * o_2_y;
+                    o_z = u(i) * o_1_z + (1 - u(i)) * o_2_z;
+                    a_x = u(i) * a_1_x + (1 - u(i)) * a_2_x;
+                    a_y = u(i) * a_1_y + (1 - u(i)) * a_2_y;
+                    a_z = u(i) * a_1_z + (1 - u(i)) * a_2_z;
+                    b_x = u(i) * b_1_x + (1 - u(i)) * b_2_x;
+                    b_y = u(i) * b_1_y + (1 - u(i)) * b_2_y;
+                    b_z = u(i) * b_1_z + (1 - u(i)) * b_2_z;
                     for j = 1 : 101
-                        c_x = obj.m_point(1).m_x * u(i) + obj.m_point(3).m_x * (1 - u(i));
-                        Sx(i,j) = c_x + r * cos(v(j)) * a(1) + r * sin(v(j)) * b(1);
-                        c_y = obj.m_point(1).m_y * u(i) + obj.m_point(3).m_y * (1 - u(i));
-                        Sy(i,j) = c_y + r * cos(v(j)) * a(2) + r * sin(v(j)) * b(2);
-                        c_z = obj.m_point(1).m_z * u(i) + obj.m_point(3).m_z * (1 - u(i));
-                        Sz(i,j) = c_z + r * cos(v(j)) * a(3) + r * sin(v(j)) * b(3);
+                        Sx(i,j) = o_x + a_x * sin(v(j)) + b_x * cos(v(j));
+                        Sy(i,j) = o_y + a_y * sin(v(j)) + b_y * cos(v(j));
+                        Sz(i,j) = o_z + a_z * sin(v(j)) + b_z * cos(v(j));
                     end
                 end
                 surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
@@ -226,9 +240,9 @@ classdef control_mesh < handle
                         Quz = obj.m_point(3).m_z * (1 - u(i)) + obj.m_point(4).m_z * u(i);
                         Sz(i,j) = Puz * (1 - w(j)) + Quz * w(j);
                     end
-                    surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
                 end
-            end 
+                surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
+            end
         end
     end
 end

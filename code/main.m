@@ -6,7 +6,7 @@ for i = 1:size(joint.m_mesh,2)
     [Sx,Sy,Sz] = joint.m_mesh(i).make_mesh();
 end
 xlim([-3 3]);ylim([-3 3]);zlim([-3 3]);
-view(71,48);
+view(94,5);
 axis equal;
 axis off;
 hold off;
