@@ -1,6 +1,6 @@
 initial;
-
-figure(1)
+scrsz = get(0,'ScreenSize');
+figure1=figure('Position',[0 0 1920 1080-80]);
 hold on;
 for i = 1:size(joint.m_mesh,2)
     [Sx,Sy,Sz] = joint.m_mesh(i).make_mesh();

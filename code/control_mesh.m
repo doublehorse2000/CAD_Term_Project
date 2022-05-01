@@ -242,6 +242,53 @@ classdef control_mesh < handle
                     end
                 end
                 surf(Sx,Sy,Sz,'linestyle','-');colormap(jet);
+            elseif obj.m_type == "tui"
+                px = [obj.m_point(1).m_y
+                    obj.m_point(2).m_y
+                    obj.m_point(3).m_y
+                    obj.m_point(4).m_y
+                    obj.m_point(5).m_y
+                    obj.m_point(6).m_y
+                    obj.m_point(7).m_y
+                    obj.m_point(8).m_y
+                    obj.m_point(9).m_y
+                    obj.m_point(10).m_y
+                    obj.m_point(11).m_y
+                    obj.m_point(12).m_y
+                    obj.m_point(13).m_y
+                    obj.m_point(14).m_y
+                    obj.m_point(15).m_y];
+                py = [obj.m_point(1).m_z
+                    obj.m_point(2).m_z
+                    obj.m_point(3).m_z
+                    obj.m_point(4).m_z
+                    obj.m_point(5).m_z
+                    obj.m_point(6).m_z
+                    obj.m_point(7).m_z
+                    obj.m_point(8).m_z
+                    obj.m_point(9).m_z
+                    obj.m_point(10).m_z
+                    obj.m_point(11).m_z
+                    obj.m_point(12).m_z
+                    obj.m_point(13).m_z
+                    obj.m_point(14).m_z
+                    obj.m_point(15).m_z];                
+                m = 14;Rm = 50;Bu = zeros([Rm , m + 1]);
+                u = linspace(0,1,Rm);v = 0 : 2 * pi / 100 : 2 * pi;
+                Sx = zeros([Rm,101]);Sy = zeros([Rm,101]);Sz = zeros([Rm,101]);
+                for i = 0 : m
+                    Bu(:,i + 1) = prod(i + 1:m) / prod(1:m - i) *  u .^ i .* (1 - u) .^ (m - i);
+                end
+                Dx = Bu * px;Dy = Bu * py;
+                for i = 1 : Rm
+                    r = abs(Dx(i) - obj.m_point(15).m_y);
+                    for j = 1:101
+                        Sx(i,j) = obj.m_point(15).m_y + r * cos(v(j));
+                        Sy(i,j) = Dy(i);
+                        Sz(i,j) = r * sin(v(j));
+                    end
+                end
+                surf(Sz,Sx,Sy,'linestyle','-');colormap(jet);
             end
         end
     end
