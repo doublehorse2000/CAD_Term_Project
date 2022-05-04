@@ -18,9 +18,9 @@ classdef control_joint < handle
     methods
         function obj = control_joint(m_mesh)
             obj.m_world = [0 0 0];
-            obj.m_head = [-3.55271e-15,2.42653,0.006061];
-            obj.m_shoulder_l = [0 0 0];
-            obj.m_shoulder_r = [0 0 0];
+            obj.m_head = [0.006061,-3.55271e-15,2.42653];
+            obj.m_shoulder_l = [0,0.469285,2.14514];
+            obj.m_shoulder_r = [0,-0.469285,2.14514];
             obj.m_leg_l = [0 0 0];
             obj.m_leg_r = [0 0 0];
             obj.m_knee_l = [0 0 0];
@@ -120,7 +120,7 @@ classdef control_joint < handle
         function move_shoulder_l(obj,x,y,z,alpha,beta,gammar)
             for i = 1:size(obj.m_mesh,2)
                 for j = 1:16
-                    if obj.m_mesh(i).m_point(j).m_level == 2 || obj.m_mesh(i).m_point(j).m_level == 21
+                    if obj.m_mesh(i).m_point(j).m_level == 2 %|| obj.m_mesh(i).m_point(j).m_level == 21
                         n = [obj.m_mesh(i).m_point(j).m_x
                             obj.m_mesh(i).m_point(j).m_y
                             obj.m_mesh(i).m_point(j).m_z
@@ -149,14 +149,7 @@ classdef control_joint < handle
                             0 1 0 0;
                             0 0 1 0;
                             obj.m_shoulder_l(1) obj.m_shoulder_l(2) obj.m_shoulder_l(3) 1];
-                        if obj.m_mesh(i).m_point(j).m_level == 2
-                            temp = n * T1 * T2 * T3 * T4 * T5 * T6;
-                        else
-                            temp = obj.m_a .* n * T1 * T2 * T3 * T4 * T5 * T6;
-                        end
-                        obj.m_shoulder_l(1) = obj.m_shoulder_l(1) + x;
-                        obj.m_shoulder_l(2) = obj.m_shoulder_l(2) + y;
-                        obj.m_shoulder_l(3) = obj.m_shoulder_l(3) + z;
+                        temp = n * T1 * T2 * T3 * T4 * T5 * T6;
                         obj.m_mesh(i).m_point(j).m_x = temp(1);
                         obj.m_mesh(i).m_point(j).m_y = temp(2);
                         obj.m_mesh(i).m_point(j).m_z = temp(3);
@@ -165,6 +158,9 @@ classdef control_joint < handle
                     end
                 end
             end
+            obj.m_shoulder_l(1) = obj.m_shoulder_l(1) + x;
+            obj.m_shoulder_l(2) = obj.m_shoulder_l(2) + y;
+            obj.m_shoulder_l(3) = obj.m_shoulder_l(3) + z;
         end
         
         function move_shoulder_r(obj,x,y,z,alpha,beta,gammar)
@@ -199,14 +195,7 @@ classdef control_joint < handle
                             0 1 0 0;
                             0 0 1 0;
                             obj.m_shoulder_r(1) obj.m_shoulder_r(2) obj.m_shoulder_r(3) 1];
-                        if obj.m_mesh(i).m_point(j).m_level == 3
-                            temp = n * T1 * T2 * T3 * T4 * T5 * T6;
-                        else
-                            temp = obj.m_a .* n * T1 * T2 * T3 * T4 * T5 * T6;
-                        end
-                        obj.m_shoulder_r(1) = obj.m_shoulder_r(1) + x;
-                        obj.m_shoulder_r(2) = obj.m_shoulder_r(2) + y;
-                        obj.m_shoulder_r(3) = obj.m_shoulder_r(3) + z;
+                        temp = n * T1 * T2 * T3 * T4 * T5 * T6;
                         obj.m_mesh(i).m_point(j).m_x = temp(1);
                         obj.m_mesh(i).m_point(j).m_y = temp(2);
                         obj.m_mesh(i).m_point(j).m_z = temp(3);
@@ -215,6 +204,9 @@ classdef control_joint < handle
                     end
                 end
             end
+            obj.m_shoulder_r(1) = obj.m_shoulder_r(1) + x;
+            obj.m_shoulder_r(2) = obj.m_shoulder_r(2) + y;
+            obj.m_shoulder_r(3) = obj.m_shoulder_r(3) + z;
         end
         
     end
