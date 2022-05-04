@@ -11,8 +11,8 @@ class control_joint{
     double m_head[3];//level = 1
     double m_shoulder_l[3];//level = 2
     double m_shoulder_r[3];//level = 3
-    double m_elbow_l[3];//level = 21
-    double m_elbow_r[3];//level = 31
+    double m_shoulder_sub_l[3];//level = 32
+    double m_shoulder_sub_r[3];//level = 31
     double m_leg_l[3];//level = 4
     double m_leg_r[3];//level = 5
     double m_knee_l[3];//level = 41
@@ -64,3 +64,6 @@ class control_point{
 };
 ```
 
+174-195
+
+196-217
