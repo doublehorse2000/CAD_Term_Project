@@ -11,24 +11,12 @@ class control_joint{
     double m_head[3];//level = 1
     double m_shoulder_l[3];//level = 2
     double m_shoulder_r[3];//level = 3
-    double m_shoulder_sub_l[3];//level = 32
-    double m_shoulder_sub_r[3];//level = 31
-    double m_leg_l[3];//level = 4
-    double m_leg_r[3];//level = 5
-    double m_knee_l[3];//level = 41
-    double m_knee_r[3];//level = 51
     control_mesh mesh[200];
     
     void move_world(double x,double y,double z,double alpha,double beta,double gammar);
     void move_head(double x,double y,double z,double alpha,double beta,double gammar);
     void move_shoulder_l(double x,double y,double z,double alpha,double beta,double gammar);
     void move_shoulder_r(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_elbow_l(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_elbow_r(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_leg_l(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_leg_r(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_knee_l(double x,double y,double z,double alpha,double beta,double gammar);
-    void move_knee_r(double x,double y,double z,double alpha,double beta,double gammar);
     
     
 };
@@ -64,6 +52,15 @@ class control_point{
 };
 ```
 
-174-195
+## 动画
 
-196-217
+BPM:150   类型:4/4
+
+* 在0-2拍，举起左手
+* 在2-4拍，举起右手
+* 在4-7拍，向前挥手
+* 在7-8拍，归中
+
+## 注意事项
+
+非必要不要运行程序，否则会生成一个4.9GB的`avi`文件

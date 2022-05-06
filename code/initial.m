@@ -5445,10 +5445,131 @@ mesh(i) = control_mesh("Bezier33",point,"#23070c");
 joint = control_joint(mesh);clear mesh;clear point;
 
 %% 动画
-time = 3;omega = 0.8;FPS = 10;
-head = zeros(1,(60 * time));shoulder_l = zeros(1,(60 * time));shoulder_r = zeros(1,(60 * time));
-for i = 1 : FPS * time
-    shoulder_l(i) = deg2rad(15 * (sin(omega * i)-sin(omega * (i - 1))));
-    shoulder_r(i) = deg2rad(15 * (sin(omega * i)-sin(omega * (i - 1))));
-    head(i) = deg2rad(10 * (sin(omega * i)-sin(omega * (i - 1))));
+BPM = 150;time = 32 * 60 / BPM;
+per_beat = 60 / BPM;
+FPS = 60;
+head = zeros(1,floor(time * FPS));
+shoulder_l = zeros(2,floor(time * FPS));
+shoulder_r = zeros(2,floor(time * FPS));
+for i = 1 : (floor(time * FPS)+1)
+    head(i) = head_data((i + 1)/60,per_beat) - head_data(i / 60,per_beat);
+    shoulder_l(:,i) = shoulder_l_data((i + 1)/60,per_beat) - shoulder_l_data(i / 60,per_beat);
+    shoulder_r(:,i) = shoulder_r_data((i + 1)/60,per_beat) - shoulder_r_data(i / 60,per_beat);
+end
+joint.move_head(0,0,0,0,0,0);
+joint.move_shoulder_l(0,0,0,-0.5,0,0);
+joint.move_shoulder_r(0,0,0,0.5,0,0);
+
+%% 函数
+function out = shoulder_l_data(t,per_beat)
+    out = zeros(1,2);
+    if t < 2 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (-1 + (t - 0) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 4 * per_beat
+        out(1) = 1;
+        out(2) = 0;
+    elseif t < 6 * per_beat
+        out(1) = 1;
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (1 + (4 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 8 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (1 + (6 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (-1 + (t - 6 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 10 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (-1 + (t - 8 * per_beat) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 12 * per_beat
+        out(1) = 1;
+        out(2) = 0;
+    elseif t < 14 * per_beat
+        out(1) = 1;
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (1 + (12 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 16 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (1 + (14 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (-1 + (t - 14 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 18 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (-1 + (t - 16 * per_beat) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 20 * per_beat
+        out(1) = 1;
+        out(2) = 0;
+    elseif t < 22 * per_beat
+        out(1) = 1;
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (1 + (20 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 24 * per_beat
+        out(1) = 1;
+        out(2) = -0.3 + 0.3 * sin(1.5708 * (-1 + (t - 22 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 26 * per_beat
+        out(1) = 1;
+        out(2) = 0;
+     elseif t < 30 * per_beat
+         out(1) = 1 + 0.4 * sin(2 * pi / 2 / per_beat * (t - 26 * per_beat));
+         out(2) = 0;
+    elseif t < 32 * per_beat
+        out(1) = 0.25 + 0.75 * sin(1.5708 * (1 + 2 * (30 * per_beat - t)/(2 * per_beat)));
+        out(2) = 0;
+    else 
+        out(1) = 0;
+        out(2) = 0;
+    end
+end
+
+function out = shoulder_r_data(t,per_beat)
+    out = zeros(1,2);
+    if t < 2 * per_beat
+        out(1) = 0.5;
+        out(2) = 0;
+    elseif t < 4 * per_beat
+        out(1) = -0.25 + 0.75 * sin(1.5708 * (1 + (2 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 6 * per_beat
+        out(1) = -1;
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (1 + (4 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 8 * per_beat
+        out(1) = -0.25 - 0.75 * sin(1.5708 * (1 + (6 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (-1 + (t - 6 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 10 * per_beat
+        out(1) = 0.5;
+        out(2) = 0;
+    elseif t < 12 * per_beat
+        out(1) = -0.25 + 0.75 * sin(1.5708 * (1 + (10 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 14 * per_beat
+        out(1) = -1;
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (1 + (12 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 16 * per_beat
+        out(1) = -0.25 - 0.75 * sin(1.5708 * (1 + (14 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (-1 + (t - 14 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 18 * per_beat
+        out(1) = 0.5;
+        out(2) = 0;
+    elseif t < 20 * per_beat
+        out(1) = -0.25 + 0.75 * sin(1.5708 * (1 + (18 * per_beat - t) * 2 / (2 * per_beat)));
+        out(2) = 0;
+    elseif t < 22 * per_beat
+        out(1) = -1;
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (1 + (20 * per_beat - t) * 2 / (2 * per_beat)));
+    elseif t < 24 * per_beat
+        out(1) = -1;
+        out(2) = 0.3 - 0.3 * sin(1.5708 * (-1 + (t - 22 * per_beat) * 2 / (2 * per_beat)));
+    elseif t < 26 * per_beat
+        out(1) = -1;
+        out(2) = 0;
+     elseif t < 30 * per_beat
+         out(1) = -1 + 0.4 * sin(2 * pi / 2 / per_beat * (t - 26 * per_beat));
+         out(2) = 0;
+    elseif t < 32 * per_beat
+        out(1) = -0.25 - 0.75 * sin(1.5708 * (1 + 2 * (30 * per_beat - t)/(2 * per_beat)));
+        out(2) = 0;
+    else 
+        out(1) = 0;out(2) = 0;
+    end
+end
+
+function out = head_data(t,per_beat)
+    if t >= 26 * per_beat && t < 30 * per_beat
+        out = 0.2 * sin(2 * pi / 2 / per_beat * (t - 26 * per_beat));
+    else 
+        out = 0;
+    end
 end

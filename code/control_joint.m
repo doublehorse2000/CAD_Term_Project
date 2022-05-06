@@ -1,17 +1,11 @@
 classdef control_joint < handle
-    %UNTITLED 此处显示有关此类的摘要
-    %   此处显示详细说明
     
     properties
         m_world,%double[3]
         m_head,%double[3]
         m_shoulder_l,%double[3]
         m_shoulder_r,%double[3]
-        m_leg_l,%double[3]
-        m_leg_r,%double[3]
-        m_knee_l,%double[3]
-        m_knee_r,%double[3]
-        m_mesh%control_mesh[]
+        m_mesh,%control_mesh[]
         m_a;%constant
     end
     
@@ -21,10 +15,6 @@ classdef control_joint < handle
             obj.m_head = [0.006061,-3.55271e-15,2.42653];
             obj.m_shoulder_l = [0,0.469285,2.14514];
             obj.m_shoulder_r = [0,-0.469285,2.14514];
-            obj.m_leg_l = [0 0 0];
-            obj.m_leg_r = [0 0 0];
-            obj.m_knee_l = [0 0 0];
-            obj.m_knee_r = [0 0 0];
             obj.m_mesh = m_mesh;
             obj.m_a = 0.5;
         end
