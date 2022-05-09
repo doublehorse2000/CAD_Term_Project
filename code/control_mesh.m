@@ -1,3 +1,8 @@
+% Copyright (C) 2022:
+% - Hengyang Feng <hengyang9311@163.com>
+% - Hanqi Zhu <277577697@qq.com>
+% - Junxian Fang<bang990104@naver.com>
+% All Rights Reserved.
 classdef control_mesh < handle
     
     properties

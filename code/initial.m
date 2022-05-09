@@ -1,8 +1,13 @@
-% 初始化
-clc;clear;close all;
-% 输入控制点信息
-%% 头发
+%% Copyright (C) 2022:
+% - Hengyang Feng <hengyang9311@163.com>
+% - Hanqi Zhu <277577697@qq.com>
+% - Junxian Fang<bang990104@naver.com>
+% All Rights Reserved.
 
+%% 初始化
+clc;clear;close all;
+
+%% 头发
 i = 1;
 point(1) = control_point(0.163134,2.86943,0.851007,1);
 point(2) = control_point(0.163134,2.86943,0.851007,1);

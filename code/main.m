@@ -1,3 +1,9 @@
+%% Copyright (C) 2022:
+% - Hengyang Feng <hengyang9311@163.com>
+% - Hanqi Zhu <277577697@qq.com>
+% - Junxian Fang<bang990104@naver.com>
+% All Rights Reserved.
+%% main
 initial;
 scrsz = get(0,'ScreenSize');
 figure1=figure('Position',[0 0 1920 1080]);

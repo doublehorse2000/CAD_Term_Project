@@ -1,3 +1,8 @@
+% Copyright (C) 2022:
+% - Hengyang Feng <hengyang9311@163.com>
+% - Hanqi Zhu <277577697@qq.com>
+% - Junxian Fang<bang990104@naver.com>
+% All Rights Reserved.
 classdef control_joint < handle
     
     properties
@@ -51,14 +56,23 @@ classdef control_joint < handle
                         0 0 1 0;
                         obj.m_world(1) obj.m_world(2) obj.m_world(3) 1];
                     temp = n * T1 * T2 * T3 * T4 * T5 * T6;
-                    obj.m_world(1) = obj.m_world(1) + x;
-                    obj.m_world(2) = obj.m_world(2) + y;
-                    obj.m_world(3) = obj.m_world(3) + z;
                     obj.m_mesh(i).m_point(j).m_x = temp(1);
                     obj.m_mesh(i).m_point(j).m_y = temp(2);
                     obj.m_mesh(i).m_point(j).m_z = temp(3);
                 end
             end
+            obj.m_world(1) = obj.m_world(1) + x;
+            obj.m_world(2) = obj.m_world(2) + y;
+            obj.m_world(3) = obj.m_world(3) + z;
+            obj.m_head(1) = obj.m_head(1) + x;
+            obj.m_head(2) = obj.m_head(2) + y;
+            obj.m_head(3) = obj.m_head(3) + z;
+            obj.m_shoulder_l(1) = obj.m_shoulder_l(1) + x;
+            obj.m_shoulder_l(2) = obj.m_shoulder_l(2) + y;
+            obj.m_shoulder_l(3) = obj.m_shoulder_l(3) + z;
+            obj.m_shoulder_r(1) = obj.m_shoulder_r(1) + x;
+            obj.m_shoulder_r(2) = obj.m_shoulder_r(2) + y;
+            obj.m_shoulder_r(3) = obj.m_shoulder_r(3) + z;
         end
         
         function move_head(obj,x,y,z,alpha,beta,gammar)

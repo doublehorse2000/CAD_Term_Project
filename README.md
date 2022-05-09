@@ -11,14 +11,12 @@ class control_joint{
     double m_head[3];//level = 1
     double m_shoulder_l[3];//level = 2
     double m_shoulder_r[3];//level = 3
-    control_mesh mesh[200];
+    control_mesh mesh[286];
     
     void move_world(double x,double y,double z,double alpha,double beta,double gammar);
     void move_head(double x,double y,double z,double alpha,double beta,double gammar);
     void move_shoulder_l(double x,double y,double z,double alpha,double beta,double gammar);
     void move_shoulder_r(double x,double y,double z,double alpha,double beta,double gammar);
-    
-    
 };
 ```
 
@@ -27,16 +25,8 @@ class control_joint{
 ```c++
 class control_mesh{
     string type;
-    //"Bezier33"
-    //"Bezier32"
-    //"Bezier22"
-    //"Circle"
-    //"line"
-    int number;//控制点个数
+    int number;
     control_point m_point[16];
-    //圆第一个点代表起点坐标
-    //第二个点代表终点坐标
-    //第三个点代表圆上一点
     void make_mesh();
 };
 ```
@@ -45,9 +35,9 @@ class control_mesh{
 
 ```c++
 class control_point{
-    int m_x;
-    int m_y;
-    int m_z;
+    double m_x;
+    double m_y;
+    double m_z;
     int level;
 };
 ```
